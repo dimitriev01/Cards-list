@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOCUMENT</title>
+  <link rel="stylesheet" href="style/reset.css">
+  <link rel="stylesheet" href="style/style.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Montserrat:300i,400,700&amp;subset=cyrillic-ext" rel="stylesheet">
+  <!-- <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.11.0/css/jquery.dataTables.min.css"> -->
+ </head>
+
+ <body>
+    <header class="header">
+                <div class="switch__header">
+                    <div class="header-left">
+                        <input name="choose" id="radio1" type="radio" class="header__switch--list"> <!--checked-->
+                        <label for="radio1"><span class="switch__text">Переключить вид контента на список</span></label>
+                    </div>
+                    <div class="header-right">
+                        <input name="choose" type="radio" id="radio2" class="header__switch--cards">  <!--checked-->
+                        <label for="radio2"><span class="switch__text">Переключить вид контента на картинки</span></label>
+                        <div class="header-btn">
+                            <input type="button" value="Стереть все картинки"class="clear__cards">
+                            <input type="button" value="Показать все картинки" class="show__cards">
+                        </div>
+                    </div>
+                </div>
+            <!--
+                cards <-> list
+            -->
+    </header>
+
+
+    <div class="cards">
+    </div>
+
+    <div class="list">
+        <ul class="list__ul main">
+        </ul>
+    </div>
+
+    <footer class="footer">
+        <div class="footer__sort-inner">
+            <div class="footer-title">Сортировать картинки:</div>
+            <div class="footer__sort">
+                <div class="sort_name">
+                    <input name="footer" type="radio" id="radio-1" class="footer__sort" checked>
+                    <label for="radio-1">По имени</label>
+                </div>
+                <div class="sort_size">
+                    <input name="footer" type="radio" id="radio-2" class="footer__sort">
+                    <label for="radio-2">По размеру</label>
+                </div>
+                <div class="sort_stamp">
+                    <input name="footer" type="radio" id="radio-4" class="footer__sort">
+                    <label for="radio-4">По дате</label>
+                </div>
+                <div class="sort_category">
+                    <input name="footer" type="radio" id="radio-3" class="footer__sort">
+                    <label for="radio-3">По категории</label>
+                </div>
+            </div>
+        </div>  
+    </footer>
+
+
+    <img src="images/loading.gif" class="loading-indicator" alt="джифка">
+    <!--<script type="text/javascript" src="//cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>-->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.cookies.js"></script>
+    <script src="js/jquery.js" type="text/javascript" ></script>
+    </body>
+</html>
+

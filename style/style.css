@@ -90,7 +90,6 @@ input[type="radio"]{
 .list__ul .nested-list{
 	padding-left: 30px;
 	position: relative;
-	
 }
 
 .list__ul .nested-list.active .far.fa-plus-square{
@@ -226,10 +225,10 @@ input[type="radio"]{
 .loading-indicator {
 	display:none;
   position: absolute;
-  left: 43%;
-  top: 43%;
-  height: 15%;
-  width: 10%;
+  left: 45%;
+  top: 44%;
+  height: 120px;
+  width: 120px;
 }
 
 @media (min-width: 3000px)
@@ -353,8 +352,8 @@ input[type="radio"]{
 		font-size: 12px;
 	}
 	.loading-indicator {
-  	height: 13%;
-  	width: 13%;
+  	height: 100px;
+  	width: 100px;
 	}
 }
 
@@ -420,22 +419,14 @@ input[type="radio"]{
 	}
 }
 
-
-@media (min-width: 900px)
-{
-	.footer {
-    padding: 10px 30px;
-	}
-}
-
 @media (max-width: 800px){
 	.footer__sort-inner {
     max-width: 80%;
     width: 80%;
 	}
 	.loading-indicator {
-  	height: 10%;
-  	width: 10%;
+  	left: 43%;
+    top: 43%;
 	}
 }
 
@@ -445,8 +436,8 @@ input[type="radio"]{
     font-size: 9px;
 	}
 	.loading-indicator {
-  	height: 10%;
-    width: 15%;
+  	height: 70px;
+    width: 70px;
 	}
 }
 
@@ -458,7 +449,7 @@ input[type="radio"]{
     font-size: 11px;
 	}
 	.list__ul.main {
-    padding: 120px 50px;
+    padding: 55px 40px;
 	}
 }
 
@@ -540,12 +531,16 @@ input[type="radio"]{
 	.header-btn{
 		flex-direction: column;
 	}
+	.loading-indicator{
+		left: 41%;
+    top: 41%;
+	}
 }
 
 @media (max-width: 374px){
 	input[type="radio"] {
-    width: 7px;
-    height: 7px;
+    width: 6.5px;
+    height: 6.5px;
 	}
 	.header{
 		padding: 0;
@@ -555,5 +550,19 @@ input[type="radio"]{
 	}
 }
 
+@media (max-width: 350px){
+	.footer-title, .footer label {
+	  font-size: 10px;
+	}
+	.footer__sort{
+		justify-content: normal;
+	}
+}
 
+@media (min-width: 250px)
+{
+	.footer {
+    padding: 10px 0;
+	}
+}
 

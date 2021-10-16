@@ -1,26 +1,4 @@
-idleTimer = null;
-idleState = false;
-idleWait = 10000; // задаём время ожидания бездействия
-
-(function ($) 
-{
-  $(document).ready(function () 
-  {
-    $('*').bind('mousemove keydown scroll', function () 
-    {
-      clearTimeout(idleTimer);
-      if (idleState)
-        console.log("С возвращением!");
-
-      idleState = false;
-      idleTimer = setTimeout(function (){
-        console.log("Уже " + idleWait / 1000 + " сек. просто смотришь на экран... Займись чем-нибудь!");
-        idleState = true;
-      }, idleWait);
-    });
-  });
-})(jQuery)
-
+  //прозрачность экрана в момент загрузки json
   $(document).ajaxSend(function(event, request, settings) {
     $('.loading-indicator').show();
     $('.loading-indicator').css('opacity','1');
@@ -32,18 +10,18 @@ idleWait = 10000; // задаём время ожидания бездейств
     $('body').css('opacity','1');
   });
 
+  // 
   $(document).ready(function()
   {
-    function showNewCards(data)
-    {
+    function showNewCards(data){
       $(`.card-item`).hide("fast");
       $(`.card-item`).remove();
         let pathImg;
         const urlSite = 'http://contest.elecard.ru/frontend_data/';
         let fullpath;
         let countImg = 0;
-        $.each(data, function(key, val)
-        { 
+
+        $.each(data, function(key, val){ 
           countImg++;
           pathImg = val.image;
           fullpath = urlSite + pathImg;
@@ -62,6 +40,9 @@ idleWait = 10000; // задаём время ожидания бездейств
       const urlSite = 'http://contest.elecard.ru/frontend_data/';
       let fullpath;
       let countImg = 0;
+
+      let deletedImages = $.cookie('deletedImages') ? $.parseJSON($.cookie('deletedImages')) : [];
+
       $.each(data, function(key, val)
       { 
         countImg++;
@@ -71,7 +52,11 @@ idleWait = 10000; // задаём время ожидания бездейств
         //появление картинок в cards
         $(".cards").append(`<div class="card-item num-${countImg}"></div>`);
         $(`.cards .num-${countImg}`).append('<i title="Удалить" class="far fa-times-circle"></i><img>');
-        $(`.cards .num-${countImg} img`).attr("src", fullpath);
+        $(`.cards .num-${countImg} img`).attr("src", fullpath).addClass("image");
+
+        if (deletedImages.includes(fullpath)) {
+          $(`.num-${countImg}`).hide();
+        }
 
            if ( !$('.list__ul.main').children().length) {
             $('.list__ul.main').text("ROOT");
@@ -129,12 +114,22 @@ idleWait = 10000; // задаём время ожидания бездейств
       function hideCurrentImg(){
         //скрыть картинку из card
         $(".card-item .far.fa-times-circle").click(function(){
-          $(this).closest(".card-item").hide("fast");
+          let cardItem = $(this).closest(".card-item");
+          cardItem.hide("fast");
+
+          // MARK: - Сохраняем удаленное изображение в куки
+          let deletedImages = [];
+          let DeletedImagesCookie = $.cookie('deletedImages');
+          
+          if (DeletedImagesCookie) 
+            deletedImages = $.parseJSON(DeletedImagesCookie);
+
+          let imageURL = cardItem.children().last().attr("src");
+          deletedImages.push(imageURL);
+          $.cookie('deletedImages', JSON.stringify(deletedImages));
         });
       }
       hideCurrentImg();
-
-      $('.header .header-btn,.footer__sort-inner').hide();
 
       $('.header .header__switch--cards').click(function(){
         $('.header .header-btn,.footer__sort-inner').show("fast");
@@ -148,31 +143,28 @@ idleWait = 10000; // задаём время ожидания бездейств
     function sortByName(){
       data.sort(function(a,b){
         return a.image.localeCompare(b.image);
-      })
+      });
       showNewCards(data);
       hideCurrentImg();
     }
     $('.sort_name').click(sortByName);
 
 
-    function sortBySize()
-    {
+    function sortBySize() {
        data.sort((lv,rv) => lv.filesize - rv.filesize);
        showNewCards(data);
        hideCurrentImg();
     }
     $('.sort_size').click(sortBySize);
 
-    function sortByStamp()
-    {
+    function sortByStamp() {
       data.sort((lv,rv) => lv.timestamp - rv.timestamp);
       showNewCards(data);
       hideCurrentImg();
     }
     $('.sort_stamp').click(sortByStamp);
 
-    function sortByCategory()
-    {
+    function sortByCategory(){
       data.sort((lv,rv) => lv.category.localeCompare(rv.category));
       showNewCards(data);
       hideCurrentImg();
@@ -180,13 +172,11 @@ idleWait = 10000; // задаём время ожидания бездейств
     $('.sort_category').click(sortByCategory);
 
 
-    }); /*function(data)*/
+  }); /*function(data)*/
 
-      $('.cards,.list__ul').hide("slow");
+    $('.list__ul').hide();
 
-
-    function showCards()
-    {
+    function showCards(){
       if ($('.header__switch--cards').is(':checked')){
         $('.list__ul').hide("slow");
         $('.cards').show("slow");
@@ -194,9 +184,7 @@ idleWait = 10000; // задаём время ожидания бездейств
     }
     $('.header__switch--cards').click(showCards);
 
-
-    function showList()
-    {
+    function showList(){
       if ($('.header__switch--list').is(':checked')){
        $('.cards').hide("slow");
        $('.list__ul').show("slow");
@@ -211,6 +199,8 @@ idleWait = 10000; // задаём время ожидания бездейств
 
 
     function ShowAllImages(){
+      $.removeCookie('deletedImages');
+      $(".card-item").show("fast");
       $(".cards").show("fast");
     }
     $(".show__cards").click(ShowAllImages);
@@ -219,4 +209,4 @@ idleWait = 10000; // задаём время ожидания бездейств
       $('.footer').css('height','auto');
     });
 
-  }); /*ready*/
+}); /*ready*/

@@ -180,7 +180,6 @@ input[type="radio"]{
 .footer{
 	padding: 30px;
 	bottom: 0;
-	height: 30px;
 }
 
 .footer__sort label{
